@@ -5,7 +5,7 @@ Pasos para usar esta herramienta
 2: ponga en la consola: 
 node crear_tor.ts
 
-chmod +x ./iniciar_tor.sh
+chmod +x /iniciar_tor.sh
 
 ./iniciar_tor.sh
 
