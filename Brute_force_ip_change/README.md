@@ -3,6 +3,7 @@ Pasos para usar esta herramienta
 1: Descargue los archivos
 
 2: ponga en la consola: 
+
 node crear_tor.ts
 
 chmod +x /iniciar_tor.sh
