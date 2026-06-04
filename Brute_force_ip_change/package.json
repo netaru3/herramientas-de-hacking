@@ -12,6 +12,7 @@
   "type": "module",
   "dependencies": {
     "@types/yargs": "^17.0.35",
+    "axios": "^1.16.1",
     "http-proxy-agent": "^9.0.0",
     "node-fetch": "^3.3.2",
     "socks-proxy-agent": "^10.0.0",
