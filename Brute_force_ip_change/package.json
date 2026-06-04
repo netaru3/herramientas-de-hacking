@@ -2,7 +2,8 @@
   "name": "rotar_ip",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "rotar_ip3.ts",
+  "bin":{"tornet":"node rotar_ip3.ts"},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
