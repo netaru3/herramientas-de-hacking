@@ -16,7 +16,7 @@ iniciar_tor
 
 ¿Cómo debe ser el body?
 
-El body debe tener la variable "contraseña" y ser un objeto tipado como string, por ejemplo el comando: tornet --body "{username:'usuarioreal123',passwd:contraseña}"
+El body debe tener la variable "contraseña" y ser un objeto tipado como string, por ejemplo el comando: tornet --body '{"username":"usuarioreal123","contraseña":"PASSWD"}'
 
 ¿cómo debe ser el header?
 
