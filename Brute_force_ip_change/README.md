@@ -1,6 +1,6 @@
 Pasos para usar esta herramienta
 
-1: Descargue los archivos
+1: Descargue los archivos en npm: https://www.npmjs.com/package/tornet
 
 2: ponga en la consola: 
 
