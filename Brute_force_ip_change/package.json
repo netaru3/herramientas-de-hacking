@@ -6,7 +6,7 @@
 
   "description": "",
 
-  "main": "rotar_ip3.ts",
+  "main": "rotar_ip3.js",
 
   "bin":{"tornet":"./rotar_ip3.js","crear_tor":"./crear_tor.js","iniciar_tor":"./iniciar_tor.sh"},
 
