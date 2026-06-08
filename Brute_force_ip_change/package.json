@@ -2,13 +2,13 @@
 
   "name": "tornet",
 
-  "version": "1.0.3",
+  "version": "1.0.4",
 
   "description": "",
 
   "main": "rotar_ip3.ts",
 
-  "bin":{"tornet":"./rotar_ip3.ts","crear_tor":"./crear_tor.ts","iniciar_tor":"./iniciar_tor.sh"},
+  "bin":{"tornet":"./rotar_ip3.js","crear_tor":"./crear_tor.js","iniciar_tor":"./iniciar_tor.sh"},
 
   "scripts": {
 
