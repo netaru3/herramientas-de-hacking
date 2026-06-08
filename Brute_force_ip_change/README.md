@@ -1,4 +1,4 @@
-esta es una herramienta de fuerza bruta usando rotación de ip (concretamente la que brinda la red tor), solo compatible (por ahora) con linux.
+esta es una herramienta de fuerza bruta usando rotación de ip (concretamente la que brinda la red tor), solo compatible con linux o git bash.
 
 esto NUNCA va a remplazar a un servicio de pago de rotación automática (hay muchos proxies que ofrecen lo mismo que este código pero 30 veces más rápido), esta es solo una opción gratuita que programé, tengan en cuenta eso
 
