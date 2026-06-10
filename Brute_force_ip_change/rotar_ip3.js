@@ -102,7 +102,7 @@ async function worker(proxie){let i=0;
 
     
 
-    while(i<yarg.n){try{let contraseña= wordlist.shift(); body.Object.keys(body)[1]= contraseña
+    while(i<yarg.n){try{let contraseña= wordlist.shift(); Object.keys(body)[1]= contraseña
 
        
 
