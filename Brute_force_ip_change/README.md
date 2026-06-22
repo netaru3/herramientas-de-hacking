@@ -4,7 +4,7 @@ esto NUNCA va a remplazar a un servicio de pago de rotación automática (hay mu
 
 Pasos para usar esta herramienta
 
-1: Descargue el paquete usando npm install -g tornet y descargue tor si no lo tienen ya instalado
+1: Descargue el paquete usando npm install -g tornet, descargue haproxy en su sistema y descargue tor si no lo tienen ya instalado
 
 2: ponga en la consola:
 
