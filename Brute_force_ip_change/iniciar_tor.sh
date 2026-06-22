@@ -1,15 +1,7 @@
 #!/bin/bash
 
+PROXY=$1
 
-#declaración de variables
-
-
-#codigo ejecutable
-
-for i in {0..4}
-do
-    tor -f /tmp/tor$i\rc &
+for i in $(seq 0 $((PROXY - 1))); do
+    tor -f /tmp/tor${i}rc &
 done
-
-
-
