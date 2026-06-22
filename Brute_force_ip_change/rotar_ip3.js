@@ -56,7 +56,7 @@ const objURL= new URL(url)
 
 const ip= await dns.lookup(objURL.hostname)
 
-let urlfinal= `https://${ip.address}${objURL.pathname}`
+let urlfinal= `https://${ip.address}${objURL.pathname}` //NO borrar esta linea, se está haciendo una resolución de dns al principio para que axios no lo haga en cada petición (termina saturado)
 
 
 
