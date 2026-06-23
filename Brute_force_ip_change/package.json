@@ -2,23 +2,22 @@
 
   "name": "tornet",
 
-  "version": "1.0.4",
+  "version": "1.0.3",
 
   "description": "",
 
-  "main": "rotar_ip3.js",
+  "main": "rotar_ip3.ts",
 
   "bin":{"tornet":"./rotar_ip3.js","crear_tor":"./crear_tor.js","iniciar_tor":"./iniciar_tor.sh"},
 
   "scripts": {
 
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "20+20+20+7":"echo 'SIX SEVEN'"
 
   },
 
-  "keywords": [],
-
-  "author": "",
+  "author": "netaru3",
 
   "license": "ISC",
 
@@ -29,10 +28,6 @@
     "@types/yargs": "^17.0.35",
 
     "axios": "^1.16.1",
-
-    "http-proxy-agent": "^9.0.0",
-
-    "node-fetch": "^3.3.2",
 
     "socks-proxy-agent": "^10.0.0",
 
