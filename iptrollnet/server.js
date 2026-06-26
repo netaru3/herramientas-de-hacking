@@ -25,6 +25,6 @@ app.post("/trollnet",async function(req,res){
 
 })
 //escucha
-app.listen(3000,function(req,res){
+app.listen(process.env.PORT || 3000,function(req,res){
     console.log("server activado")
 })
