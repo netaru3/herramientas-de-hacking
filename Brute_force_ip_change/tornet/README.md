@@ -4,13 +4,13 @@ esto NUNCA va a remplazar a un servicio de pago de rotación automática (hay mu
 
 Pasos para usar esta herramienta
 
-1: Descargue el paquete usando npm install -g tornet, descargue haproxy en su sistema y descargue tor si no lo tienen ya instalado
+ejecute: 
+docker pull netaru3/tornet
+docker run -d --name tornet netaru3/tornet:latest
+docker exec -it tornet5 /bin/bash
 
-2: ponga en la consola:
 
-crear_tor
-
-iniciar_tor
+si quiere usar tornet sin docker, acceda a su descarga en npm: https://www.npmjs.com/package/tornet?activeTab=readme
 
 3: Una vez haya inicializado tor, solo tiene que usar el comando "tornet", use las flags "--url" para indicar la url, "-n" para indicar el número de peticiones a hacer antes del rate-limit, "--wordlist" para especificar la wordlist que quieres usar, "--body" para indicar el body de la respuesta (cómo string), "--error" para especificar el mensaje de error y "--header" para especificar el header de la respuesta.
 
