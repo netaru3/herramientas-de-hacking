@@ -1,0 +1,33 @@
+{
+
+  "name": "blue_tornet",
+
+  "version": "1.0.1",
+
+  "description": "",
+
+  "main": "rotar_ip3.js",
+
+  "bin":{"tornet":"./rotar_ip3.js"},
+
+  "scripts": {
+
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "20+20+20+7":"echo 'SIX SEVEN'"
+
+  },
+
+  "author": "netaru3",
+
+  "license": "ISC",
+
+  "type": "module",
+
+  "dependencies": {
+
+    "socks-proxy-agent": "^10.0.0"
+
+
+  }
+
+}
