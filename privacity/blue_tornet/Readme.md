@@ -1,18 +1,18 @@
-Esta es una herramienta que brinda anonimato haciendo que todo el tráfico pase por 5 instancias de tor, rotando sus IPs cada 15 segundos.
+This tool provides anonymity by routing all traffic through 5 Tor instances, rotating their IP addresses every 15 seconds.
 
-Con esta herramienta todo tu tráfico se dividirá en 5, haciéndote prácticamente irrastreable.
+With this tool, all your traffic will be split into 5 streams, making you virtually untraceable.
 
-Para instalarlo, descarga el contenedor de docker:
+To install it, download the Docker container:
 
 docker pull netaru3/blue_tornet
 
-y para iniciarlo haz:
+and to start it, run:
 
 
-docker run -p TU_PUERTO:16379 netaru3/blue_tornet
+docker run -p YOUR_PORT:16379 netaru3/blue_tornet
 
 
 
-Si quieres que todo tu tráfico web pase por el navegador, solo ve a settings, después a Network settings, dale click a Manual proxy configuration, dale click a Socks Host, en la primera fila pon: 127.0.0.1, y en la segunda el puerto que pusiste en docker
+If you want all your web traffic to go through the proxy, just go to Settings, then Network Settings, click Manual proxy configuration, click Socks Host, enter 127.0.0.1 in the first row, and the port you set in Docker in the second row.
 
-
+Translated with DeepL.com (free version)
