@@ -1,0 +1,26 @@
+FROM node:22-bookworm
+
+
+RUN apt-get update && \
+    apt-get install -y tor haproxy sudo && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN npm install tornet@1.0.9 -g
+
+
+
+WORKDIR /app
+COPY blue_tornet.js package.json ./
+COPY haproxy.cfg /etc/haproxy/haproxy.cfg
+COPY privoxy_config.txt /etc/privoxy/config
+RUN npm install
+
+
+
+
+
+# Copiar el resto del proyecto
+EXPOSE 16379
+
+CMD ["sh", "-c", "service haproxy start && crear_tor && iniciar_tor 5 && node blue_tornet.js"]
