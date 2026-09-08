@@ -16,10 +16,8 @@ import net from 'net'
 
 //-------------declaración de variables--------------------
 
-let control_ports=["9053","9055","9057","9059","9061"]
 
 
-const agent = new SocksProxyAgent('socks5://127.0.0.1:16379')
 
 
 
@@ -30,8 +28,8 @@ console.log("se está ejecutando blue tornet")
 
 
     let ID1= setInterval(() => {
-        for (let ports of control_ports){
-            const socket= net.connect(ports,"127.0.0.1")
+        
+            const socket= net.connect(9053,"127.0.0.1")
 
             socket.on('connect', () => {
             socket.write('AUTHENTICATE ""\r\n');
@@ -50,6 +48,6 @@ console.log("se está ejecutando blue tornet")
             });
         });
         }
-    }, 15000);
+    , 15000);
 
        
