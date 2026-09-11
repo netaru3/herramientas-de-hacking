@@ -61,6 +61,8 @@ let found=false
 let contador=0
 let workers=0
 
+let elemento:number=-1
+
 
 //functions declaracions
 
@@ -70,37 +72,52 @@ async function worker(){ console.log("worker iniciado")
     let body= JSON.parse(yarg.body)
     let usernamebody= Object.keys(body)[0]
     let passwordbody= Object.keys(body)[1]
+    let freezeelemento1= elemento
+    let freezeelemento=0
+
+    let booleanfreeze:Boolean= false
 
     while(found===false){
+     
         
+        if(booleanfreeze===true && freezeelemento1!==-1){freezeelemento=freezeelemento1; booleanfreeze=false}
+        else{freezeelemento= ++elemento}
+        
+            if (freezeelemento >= wordlist.length) {
+      break;
+    }
 
               if(yarg.password===true){
-                let passw:any= wordlist.shift()
+                let passw:any= wordlist[freezeelemento]
         try{
             
             body[passwordbody]=passw; 
-         let peticion:any= await  axios.post(trueurl,body,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
+
+            let currentbody={...body}
+         let peticion:any= await  axios.post(trueurl,currentbody,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
          let data:String=peticion.data
 
                 if(data.includes(error)){++contador}
                 if(contador%100===0){console.log(contador)}
-                else{console.log("contraseña encontrada:",passw,"html:",data),found=true}
-            
+                else if(!data.includes(error)){console.log("contraseña encontrada:",passw,"html:",data),found=true}
+            freezeelemento1=freezeelemento
 
-        }catch(error){console.log("error",error); wordlist.unshift(passw)}
+        }catch(error){booleanfreeze=true}
         
     }
 
-    else{let user:any= wordlist.shift()
+    else{let user:any= wordlist[freezeelemento]
          try{
               
             body[usernamebody]=user;
-           let peticion:any= await axios.post(trueurl,body,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
+            let currentbody={...body}
+           let peticion:any= await axios.post(trueurl,currentbody,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
            let data:String= peticion.data
                 if(data.includes(error)){++contador; console.log("usuario incorrecto:",user,"contador:",contador)}
                 else{console.log("usuario encontrado:",user),found=true}
+                freezeelemento1=freezeelemento
             } 
-             catch(error){console.log("error:",error); wordlist.unshift(user)}
+             catch(error){booleanfreeze=true}
     }
 
     
