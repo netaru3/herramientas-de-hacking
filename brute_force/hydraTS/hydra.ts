@@ -61,7 +61,7 @@ let found=false
 let contador=0
 let workers=0
 
-let elemento:number=190000
+let elemento:number=0
 
 
 //functions declaracions
