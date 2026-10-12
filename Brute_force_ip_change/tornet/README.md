@@ -22,4 +22,3 @@ El body debe tener la variable "contraseña" en el segundo lugar y ser un objeto
 
 en el header solo se tiene que especificar el tipo, por ejemplo: tornet --header "application/json"
 
-aviso: La velocidad promedio de esta herramienta es de 2 peticiones por segundo (bastante lento la verdad), si desea aumentar la velocidad le recomiendo dos opciones, o usar un servicio de proxies con rotación de ip automática (de paga), o use esta herramienta en varias computadoras (inevitablemente tendrá que manipular el código, suerte)
