@@ -29,18 +29,19 @@ import dns from 'dns/promises'
 const yarg= yargs(hideBin(process.argv))
 
 .option("url",{demandOption:false,type:"string"})
-.option("n",{type:"number",demandOption:false, default:5}).
 
-option("header",{type:"string",default:"application/json"})
+.option("n",{type:"number",demandOption:false, default:5})
+
+.option("header",{type:"string",default:"application/json"})
+
+.option("workers",{type:"number",default:40})
 
 .option("body",{type:"string",default:`{"usuario":"netaru3","contraseña":"contra"}`})
 
-.option("method",{type:"string"})
 
 .option("wordlist",{type:"string",default:"/usr/share/wordlists/rockyou.txt"})
 
 .option("error",{type:"string",default:"error"})
-.options("proxies",{type:"number",default:5})
 .parseSync()
 
 
@@ -180,7 +181,9 @@ setInterval(() => {
 
 
   
- while(workers<50){worker();++workers}  
+ while(workers<yarg.workers){worker();++workers}  
 
 
+
+    
        
